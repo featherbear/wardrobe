@@ -7,10 +7,12 @@
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
-  let name, icon;
+  let name="", icon="";
   $: {
-    name = data.name;
-    icon = data.icon;
+    if (data) {
+      name = data.name;
+      icon = data.icon;
+    }
   }
 
   const getFormData = () => {
@@ -19,7 +21,7 @@
       icon: icon.trim()
     };
   };
-  
+
   async function createCategory() {
     let formData = getFormData();
     let nextOrderID = ctx.categories.length + 1;
