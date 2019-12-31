@@ -1,12 +1,7 @@
 <script>
   import SidenavEntry from "./SidenavEntry.svelte";
 
-  export let extraEntries = [];
-
-  import {getContext} from "svelte";
-  let ctx = getContext('ctx')
-console.log(ctx);
-  let entries = [...ctx.categories, ...extraEntries];
+  export let entries = [];
 
 </script>
 

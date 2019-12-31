@@ -3,7 +3,7 @@ import SidenavEntryPopup from './SidenavEntryPopup.svelte'
 let modal = null
 let lastTarget = null
 
-function setPopup (target, props) {
+function setPopup (target, data, ctx) {
   if (lastTarget === target) {
     return
   }
@@ -14,7 +14,7 @@ function setPopup (target, props) {
 
   modal = new SidenavEntryPopup({
     target: document.body,
-    props: { ...props, target },
+    props: { target, data, ctx },
     intro: true
   })
 

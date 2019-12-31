@@ -4,6 +4,9 @@
 
   import { getContext, onMount } from "svelte";
   const ctx = getContext("ctx");
+  
+  let categories = [];
+    // categories = $ctx.categories
 
 </script>
 
@@ -15,7 +18,7 @@
 
 <div class="content">
 
-{#each ctx.categories as category}
+{#each categories as category}
   <Carousel data={category} />
 {/each}
 

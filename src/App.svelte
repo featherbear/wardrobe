@@ -5,7 +5,13 @@
   import { setContext } from "svelte";
 
   export let data;
+
   setContext("ctx", data);
+
+  data.update = function() {
+    // Reactive update
+    data = data;
+  };
 
   let state = {};
   setContext("state", state);
@@ -19,6 +25,12 @@
     icon: plus,
     click: () => EditCategory.createModal({ ctx: data })
   };
+
+  let sidenavEntries = [];
+
+  $: {
+    sidenavEntries = [...data.categories, addCategoryButton];
+  }
 </script>
 
 <style>
@@ -67,7 +79,7 @@
 
 <main>
   <div class="column nav">
-    <Sidenav extraEntries={[addCategoryButton]} />
+    <Sidenav entries={sidenavEntries} />
   </div>
   <div class="column content">
     <Main />

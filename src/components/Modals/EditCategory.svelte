@@ -16,9 +16,15 @@
     };
   };
   async function createCategory() {
-    let ret = await ctx.database.categories.post(getFormData());
-    console.log(ret);
+    let formData = getFormData();
+    let ret = await ctx.database.categories.post(formData);
     if (ret.ok) {
+      formData.id = ret.id;
+      formData.rev = ret.rev;
+      // ctx.categories.push(formData);
+      ctx.categories = [...ctx.categories, formData];
+      ctx.update()
+      console.log("GOOD");
       dispatch("close");
     }
   }

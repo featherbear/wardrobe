@@ -3,8 +3,11 @@
 
   import SidenavEntryPopup from "./SidenavEntryPopup.js";
 
+  import { getContext } from "svelte";
+  let ctx = getContext("ctx");
+  
   function defaultClickEvent() {
-    SidenavEntryPopup.setPopup(this)
+    SidenavEntryPopup.setPopup(this, data, ctx);
   }
 
   import Icon from "svelte-awesome";
