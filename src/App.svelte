@@ -55,6 +55,7 @@
   main .column.nav {
     flex-basis: 80px;
     /* width: 200px; */
+    border-right: 0.5px solid grey;
     background-color: #ffd78c;
   }
 
@@ -78,7 +79,7 @@
     <Sidenav entries={[addCategoryButton]} />
   </div>
   <div class="column content">
-    <Main />
+    <Main entries={categories} />
   </div>
   <!-- <div class="column nav">
     <Sidenav />

@@ -7,13 +7,16 @@
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
-  let name="", icon="";
-  $: {
+  let name = "";
+  let icon = "";
+
+  import { onMount } from "svelte";
+  onMount(() => {
     if (data) {
       name = data.name;
       icon = data.icon;
     }
-  }
+  });
 
   const getFormData = () => {
     return {
@@ -37,9 +40,15 @@
   }
 
   async function updateCategory() {
-    let ret = await ctx.databse.categories.put({ ...data, ...getFormData() });
-    console.log(ret);
+    let updatedData = { ...data, ...getFormData() };
+    let ret = await ctx.database.categories.put(updatedData);
     if (ret.ok) {
+      // let searchID = ctx.categories.findIndex(function(c) {
+      //   return (c.id || c._id) == updatedData.id;
+      // });
+      // ctx.categories[searchID] = updatedData;
+      // ctx.categories = ctx.categories
+      // ctx.update();
       dispatch("close");
     }
   }

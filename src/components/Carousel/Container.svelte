@@ -6,6 +6,7 @@
   import CarouselMenu from "./Menu.svelte";
 
   export let data;
+  console.log(data);
 
   function left() {
     console.log("leff");

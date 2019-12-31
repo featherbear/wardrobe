@@ -4,12 +4,14 @@ let modal = null
 let lastTarget = null
 
 function setPopup (target, data, ctx) {
-  if (lastTarget === target) {
-    return
-  }
-
   if (modal) {
     modal.$destroy()
+    modal = null
+  }
+
+  if (lastTarget === target) {
+    lastTarget = null;
+    return
   }
 
   modal = new SidenavEntryPopup({
