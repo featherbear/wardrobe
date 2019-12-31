@@ -1,6 +1,24 @@
 <script>
   import Main from "./components/Main.svelte";
   import Sidenav from "./components/Sidenav.svelte";
+
+  import { setContext } from "svelte";
+
+  export let data;
+  setContext("data", data);
+
+  let state = {};
+  setContext("state", state);
+
+  import { plus } from "svelte-awesome/icons";
+
+  import EditCategory from "./components/Modals/EditCategory.js";
+  let addCategoryButton = {
+    id: null,
+    tooltip: "Add new category",
+    icon: plus,
+    click: () => EditCategory.createModal()
+  };
 </script>
 
 <style>
@@ -23,10 +41,14 @@
     flex-basis: 100%;
     flex: 1;
   }
+
+  main .column.content {
+    background-color: #ffd599;
+  }
   main .column.nav {
-    flex-basis: 120px;
+    flex-basis: 80px;
     /* width: 200px; */
-    background-color: pink;
+    background-color: #ffd78c;
   }
 
   h1 {
@@ -45,12 +67,12 @@
 
 <main>
   <div class="column nav">
-    <Sidenav />
+    <Sidenav borderRight data={[addCategoryButton]} />
   </div>
   <div class="column content">
     <Main />
   </div>
-  <div class="column nav">
-    <Sidenav />
-  </div>
+  <!-- <div class="column nav">
+    <Sidenav borderLeft />
+  </div> -->
 </main>
