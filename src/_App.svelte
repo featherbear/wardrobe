@@ -7,8 +7,13 @@
       categories: new PouchDB("categories")
     };
 
-    let items = await database.items.allDocs({ include_docs: true });
-    let categories = await database.items.allDocs({ include_docs: true });
+    let items = await database.items
+      .allDocs({ include_docs: true })
+      .then(r => r.rows.map(e => e.doc));
+    let categories = await database.categories
+      .allDocs({ include_docs: true })
+      .then(r => r.rows.map(e => e.doc));
+
     return { database, items, categories };
   }
 

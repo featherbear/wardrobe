@@ -1,11 +1,11 @@
 <script>
   import Main from "./components/Main.svelte";
-  import Sidenav from "./components/Sidenav.svelte";
+  import Sidenav from "./components/Sidenav/Sidenav.svelte";
 
   import { setContext } from "svelte";
 
   export let data;
-  setContext("data", data);
+  setContext("ctx", data);
 
   let state = {};
   setContext("state", state);
@@ -17,7 +17,7 @@
     id: null,
     tooltip: "Add new category",
     icon: plus,
-    click: () => EditCategory.createModal()
+    click: () => EditCategory.createModal({ ctx: data })
   };
 </script>
 
@@ -67,12 +67,12 @@
 
 <main>
   <div class="column nav">
-    <Sidenav borderRight data={[addCategoryButton]} />
+    <Sidenav extraEntries={[addCategoryButton]} />
   </div>
   <div class="column content">
     <Main />
   </div>
   <!-- <div class="column nav">
-    <Sidenav borderLeft />
+    <Sidenav />
   </div> -->
 </main>

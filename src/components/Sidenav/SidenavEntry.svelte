@@ -1,6 +1,8 @@
 <script>
   export let data;
 
+  import SidenavEntryPanel from "./SidenavEntryPanel.svelte";
+
   function defaultClickEvent() {}
 
   import Icon from "svelte-awesome";
@@ -31,5 +33,7 @@
 </style>
 
 <div class="entry" on:click={data.click || defaultClickEvent}>
-  <Icon data={data.icon} scale="2" />
+  {#if data.icon}
+    <Icon data={data.icon} scale="2" />
+  {:else}{data.name}{/if}
 </div>

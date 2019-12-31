@@ -1,22 +1,11 @@
 <script>
-  export let id;
   let ready = false;
   let selected;
 
   import Carousel from "./Carousel.svelte";
   import CarouselMenu from "./Menu.svelte";
 
-let data;
-
-  import { getContext } from "svelte";
-  const database = getContext("database");
-
-  async function load() {
-    data = await database.categories.get(id)
-    console.log(data);
-    ready = true;
-  }
-  load();
+  export let data;
 
   function left() {
     console.log("leff");
@@ -29,9 +18,7 @@ let data;
   }
 </style>
 
-{#if ready}
-  <div class="container">
-    <Carousel />
-    <CarouselMenu on:random on:left on:right />
-  </div>
-{/if}
+<div class="container">
+  <Carousel />
+  <CarouselMenu on:random on:left on:right />
+</div>

@@ -3,12 +3,8 @@
   import Carousel from "./Carousel";
 
   import { getContext, onMount } from "svelte";
-  const database = getContext("database");
+  const ctx = getContext("ctx");
 
-  onMount(() => (window.hehe = database));
-  // database.categories.post({
-  //   name: "hehe"
-  // });
 </script>
 
 <style>
@@ -19,11 +15,9 @@
 
 <div class="content">
 
-  <!-- {#await database.categories.allDocs({ include_docs: true }) then data}
-    {#each data.rows as category}
-      <Carousel id={category.id} />
-    {/each}
-  {/await} -->
+{#each ctx.categories as category}
+  <Carousel data={category} />
+{/each}
 
   <!-- <Button>Random</Button>
   <Button>Save</Button> -->
