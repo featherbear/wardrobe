@@ -1,6 +1,5 @@
 <script>
   export let data;
-  console.log("Creating entry: ", data);
 
   import SidenavEntryPopup from "./SidenavEntryPopup.js";
 

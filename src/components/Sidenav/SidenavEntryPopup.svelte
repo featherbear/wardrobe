@@ -12,6 +12,8 @@
     y = rect.y;
   }
 
+  import EditCategory from "../Modals/EditCategory.js";
+
   import Icon from "svelte-awesome";
   import { edit } from "svelte-awesome/icons";
 </script>
@@ -23,12 +25,17 @@
     position: absolute;
     display: inline-block;
   }
+  .editBtn {
+    cursor: pointer;
+  }
 </style>
 
 <div class="popup" style="left: {x}px; top: {y}px;">
   <div class="toolbar">
     <span>{data.name}</span>
-    <span on:click>
+    <span
+      class="editBtn"
+      on:click={() => EditCategory.createModal({ ctx, data })}>
       <Icon data={edit} />
     </span>
   </div>

@@ -7,13 +7,19 @@
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
-  let form;
+  let name, icon;
+  $: {
+    name = data.name;
+    icon = data.icon;
+  }
+
   const getFormData = () => {
     return {
-      name: form.name.value.trim(),
-      icon: form.icon.value.trim()
+      name: name.trim(),
+      icon: icon.trim()
     };
   };
+  
   async function createCategory() {
     let formData = getFormData();
     let nextOrderID = ctx.categories.length + 1;
@@ -22,11 +28,12 @@
     if (ret.ok) {
       formData.id = ret.id;
       formData.rev = ret.rev;
-      ctx.categories= [...ctx.categories, formData];
-      ctx.update()
+      ctx.categories = [...ctx.categories, formData];
+      ctx.update();
       dispatch("close");
     }
   }
+
   async function updateCategory() {
     let ret = await ctx.databse.categories.put({ ...data, ...getFormData() });
     console.log(ret);
@@ -34,6 +41,8 @@
       dispatch("close");
     }
   }
+
+  async function deleteCategory() {}
 </script>
 
 <style>
@@ -87,14 +96,15 @@
       {/if}
     </header>
     <main>
-      <form bind:this={form}>
+      <form>
         <label>Category name</label>
-        <input name="name" type="text" />
+        <input name="name" type="text" bind:value={name} />
         <label>Icon</label>
-        <input name="icon" type="text" />
+        <input name="icon" type="text" bind:value={icon} />
       </form>
     </main>
     <footer>
+      <!-- <button on:click={deleteCategory}>Delete</button> -->
       <button class="button" on:click={() => dispatch('close')}>Cancel</button>
 
       {#if data}
