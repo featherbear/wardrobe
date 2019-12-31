@@ -12,8 +12,17 @@
     data = data;
   };
 
-  // let state = {};
-  // setContext("state", state);
+  let state = localStorage.getItem("state");
+  if (state === null) {
+    state = {};
+  } else {
+    state = JSON.parse(state);
+  }
+  state.__proto__.update = () => {
+    state = state;
+  };
+  setContext("state", state);
+  $: localStorage.setItem("state", JSON.stringify(state));
 
   import EditCategory from "./components/Modals/EditCategory.js";
   import { plus } from "svelte-awesome/icons";

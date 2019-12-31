@@ -1,7 +1,7 @@
 <script>
   let ready = false;
   let selected = {};
-  let selectedIndex = 0;
+  let selectedIndex = -1;
 
   import Carousel from "./Carousel.svelte";
   import CarouselMenu from "./Menu.svelte";
@@ -39,15 +39,31 @@
   import { getContext } from "svelte";
   const ctx = getContext("ctx");
 
-  let tiles;
+  let tiles = [];
   $: {
     tiles = ctx.items.filter(i => i.category == data._id);
   }
 
+  const state = getContext("state");
+
+  import { onMount } from "svelte";
+  onMount(() => {
+    let targetStateID = state[data._id];
+    if (targetStateID) {
+      let idx = tiles.findIndex(t => t._id == targetStateID);
+      if (idx > -1) {
+        selectedIndex = idx;
+      }
+    }
+  });
+
   $: {
     if (tiles.length) {
-      selected = tiles[selectedIndex];
-      console.log("Selected", selectedIndex);
+      if (selectedIndex != -1) {
+        selected = tiles[selectedIndex];
+        state[data._id] = selected._id;
+        state.update();
+      }
     }
   }
 </script>
