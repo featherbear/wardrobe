@@ -1,9 +1,11 @@
 <script>
   export let data;
 
-  import SidenavEntryPanel from "./SidenavEntryPanel.svelte";
+  import SidenavEntryPopup from "./SidenavEntryPopup.js";
 
-  function defaultClickEvent() {}
+  function defaultClickEvent() {
+    SidenavEntryPopup.setPopup(this)
+  }
 
   import Icon from "svelte-awesome";
 </script>
