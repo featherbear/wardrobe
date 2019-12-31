@@ -12,6 +12,6 @@
   }
 </style>
 
-<div class="item">
+<div class="item" on:click>
   <slot />
 </div>

@@ -1,15 +1,54 @@
 <script>
   let ready = false;
-  let selected;
+  let selected = {};
+  let selectedIndex = 0;
 
   import Carousel from "./Carousel.svelte";
   import CarouselMenu from "./Menu.svelte";
 
   export let data;
-  console.log(data);
 
   function left() {
-    console.log("leff");
+    selectedIndex = (tiles.indexOf(selected) - 1 + tiles.length) % tiles.length;
+  }
+
+  function right() {
+    selectedIndex = (tiles.indexOf(selected) + 1) % tiles.length;
+  }
+
+  function random() {
+    const RNG = topInclusive => Math.floor(Math.random() * topInclusive);
+
+    function randomPositiveIntegerButNot(topInclusive, not) {
+      if (topInclusive === 0) return 0;
+      if (topInclusive === 1) return 0;
+
+      let result = not;
+      while (result == not) {
+        result = RNG(topInclusive);
+      }
+      return result;
+    }
+
+    selectedIndex = randomPositiveIntegerButNot(
+      tiles.length,
+      tiles.indexOf(selected)
+    );
+  }
+
+  import { getContext } from "svelte";
+  const ctx = getContext("ctx");
+
+  let tiles;
+  $: {
+    tiles = ctx.items.filter(i => i.category == data._id);
+  }
+
+  $: {
+    if (tiles.length) {
+      selected = tiles[selectedIndex];
+      console.log("Selected", selectedIndex);
+    }
   }
 </script>
 
@@ -20,6 +59,6 @@
 </style>
 
 <div class="container">
-  <Carousel />
-  <CarouselMenu on:random on:left on:right />
+  <Carousel {selected} />
+  <CarouselMenu on:random={random} on:left={left} on:right={right} />
 </div>

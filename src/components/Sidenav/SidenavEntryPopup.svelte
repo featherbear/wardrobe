@@ -28,6 +28,43 @@
     }
     return list;
   }
+
+  function openUpload() {
+    let elem = document.createElement("input");
+    elem.type = "file";
+    elem.accept = "image/*";
+    elem.multiple = true;
+    elem.addEventListener("change", async function() {
+      for (let file of this.files) {
+        uploadImage(file);
+      }
+    });
+
+    elem.click();
+  }
+  async function uploadImage(file) {
+    let ret = await ctx.database.items.post({
+      category: data.id || data._id,
+      _attachments: {
+        [file.name]: {
+          content_type: file.type,
+          data: file
+        }
+      }
+    });
+
+    if (ret.ok) {
+      console.log("Upload of " + file.name + " success!");
+      console.log(ret);
+      let url = URL.createObjectURL(file);
+      var img = document.createElement("img");
+      img.src = url;
+      document.body.appendChild(img);
+    }
+  }
+
+  let tiles;
+  $: tiles = ctx.items.filter(i => i.category == data._id);
 </script>
 
 <style>
@@ -65,10 +102,12 @@
     </span>
   </div>
   <div class="grid">
-    {#each giveMeNumbers(56) as _}
-      <SidenavEntryPopupItem>{_}</SidenavEntryPopupItem>
+    {#each tiles as tile}
+      <SidenavEntryPopupItem>
+        <img src={tile.url} />
+      </SidenavEntryPopupItem>
     {/each}
-    <SidenavEntryPopupItem>
+    <SidenavEntryPopupItem on:click={openUpload}>
       <Icon data={plus} />
     </SidenavEntryPopupItem>
   </div>

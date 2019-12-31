@@ -1,5 +1,6 @@
 <script>
   import CarouselEntry from "./Entry.svelte";
+  export let selected;
 </script>
 
 <style>
@@ -13,5 +14,5 @@
 </style>
 
 <div class="carousel">
-  <CarouselEntry />
+  <CarouselEntry {selected} />
 </div>
