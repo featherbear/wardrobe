@@ -1,13 +1,12 @@
 <script>
   import SidenavEntry from "./SidenavEntry.svelte";
 
-  export let entries = [];
-
+  export let entries;
 </script>
 
 <style>
   .sidenav {
-    height: 100%;
+    /* height: 100%; */
   }
 </style>
 

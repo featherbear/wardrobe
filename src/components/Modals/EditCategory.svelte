@@ -5,7 +5,6 @@
   import { fade } from "svelte/transition";
 
   import { createEventDispatcher } from "svelte";
-
   const dispatch = createEventDispatcher();
 
   let form;
@@ -17,14 +16,14 @@
   };
   async function createCategory() {
     let formData = getFormData();
+    let nextOrderID = ctx.categories.length + 1;
+    formData.order = nextOrderID;
     let ret = await ctx.database.categories.post(formData);
     if (ret.ok) {
       formData.id = ret.id;
       formData.rev = ret.rev;
-      // ctx.categories.push(formData);
-      ctx.categories = [...ctx.categories, formData];
+      ctx.categories= [...ctx.categories, formData];
       ctx.update()
-      console.log("GOOD");
       dispatch("close");
     }
   }

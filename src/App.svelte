@@ -5,7 +5,6 @@
   import { setContext } from "svelte";
 
   export let data;
-
   setContext("ctx", data);
 
   data.update = function() {
@@ -13,24 +12,20 @@
     data = data;
   };
 
-  let state = {};
-  setContext("state", state);
-
-  import { plus } from "svelte-awesome/icons";
+  // let state = {};
+  // setContext("state", state);
 
   import EditCategory from "./components/Modals/EditCategory.js";
+  import { plus } from "svelte-awesome/icons";
   let addCategoryButton = {
-    id: null,
+    id: "yep",
     tooltip: "Add new category",
     icon: plus,
     click: () => EditCategory.createModal({ ctx: data })
   };
 
-  let sidenavEntries = [];
-
-  $: {
-    sidenavEntries = [...data.categories, addCategoryButton];
-  }
+  let categories;
+  $: categories = data.categories.sort((a, b) => a.order - b.order);
 </script>
 
 <style>
@@ -79,7 +74,8 @@
 
 <main>
   <div class="column nav">
-    <Sidenav entries={sidenavEntries} />
+    <Sidenav entries={categories} />
+    <Sidenav entries={[addCategoryButton]} />
   </div>
   <div class="column content">
     <Main />

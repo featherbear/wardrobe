@@ -1,22 +1,24 @@
 <script>
   export let data;
+  console.log("Creating entry: ", data);
 
   import SidenavEntryPopup from "./SidenavEntryPopup.js";
 
   import { getContext } from "svelte";
   let ctx = getContext("ctx");
-  
+
   function defaultClickEvent() {
     SidenavEntryPopup.setPopup(this, data, ctx);
   }
 
+  import * as Icons from "svelte-awesome/icons/index.js";
   import Icon from "svelte-awesome";
 </script>
 
 <style>
   .entry {
     cursor: pointer;
-    height: 10%;
+    height: 50px;
     padding: 5px;
 
     display: flex;
@@ -38,7 +40,9 @@
 </style>
 
 <div class="entry" on:click={data.click || defaultClickEvent}>
-  {#if data.icon}
+  {#if typeof data.icon === 'object'}
     <Icon data={data.icon} scale="2" />
+  {:else if data.icon in Icons}
+    <Icon data={Icons[data.icon]} scale="2" />
   {:else}{data.name}{/if}
 </div>
