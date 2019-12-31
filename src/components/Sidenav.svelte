@@ -1,5 +1,7 @@
 <script>
   import SidenavEntry from "./SidenavEntry.svelte";
+  export let borderRight = false;
+  export let borderLeft = false;
 </script>
 
 <style>
@@ -9,8 +11,9 @@
 </style>
 
 <div class="sidenav">
-  <SidenavEntry />
-  <SidenavEntry />
-  <SidenavEntry />
-  <SidenavEntry />
+  <SidenavEntry {...$$props} />
+  <SidenavEntry {...$$props} />
+  <SidenavEntry {...$$props} />
+  <SidenavEntry {...$$props} />
+
 </div>
