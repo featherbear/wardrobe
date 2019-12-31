@@ -1,7 +1,6 @@
 <script>
   let ready = false;
   let selected = {};
-  let selectedIndex = -1;
 
   import Carousel from "./Carousel.svelte";
   import CarouselMenu from "./Menu.svelte";
@@ -9,11 +8,13 @@
   export let data;
 
   function left() {
-    selectedIndex = (tiles.indexOf(selected) - 1 + tiles.length) % tiles.length;
+    let index = (tiles.indexOf(selected) - 1 + tiles.length) % tiles.length;
+    setState(tiles[index]._id);
   }
 
   function right() {
-    selectedIndex = (tiles.indexOf(selected) + 1) % tiles.length;
+    let index = (tiles.indexOf(selected) + 1) % tiles.length;
+    setState(tiles[index]._id);
   }
 
   function random() {
@@ -30,10 +31,11 @@
       return result;
     }
 
-    selectedIndex = randomPositiveIntegerButNot(
+    let index = randomPositiveIntegerButNot(
       tiles.length,
       tiles.indexOf(selected)
     );
+    setState(tiles[index]._id);
   }
 
   import { getContext } from "svelte";
@@ -41,31 +43,35 @@
 
   let tiles = [];
   $: {
+    console.log(ctx.items);
     tiles = ctx.items.filter(i => i.category == data._id);
+  }
+
+  function getTile(id) {
+    return tiles.find(t => t._id == id);
+  }
+  function getTileIndex(id) {
+    return tiles.findIndex(t => t._id == id);
   }
 
   const state = getContext("state");
 
-  import { onMount } from "svelte";
-  onMount(() => {
+  $: {
     let targetStateID = state[data._id];
     if (targetStateID) {
-      let idx = tiles.findIndex(t => t._id == targetStateID);
-      if (idx > -1) {
-        selectedIndex = idx;
-      }
-    }
-  });
-
-  $: {
-    if (tiles.length) {
-      if (selectedIndex != -1) {
-        selected = tiles[selectedIndex];
-        state[data._id] = selected._id;
-        state.update();
+      let tile = getTile(targetStateID);
+      if (tile !== undefined) {
+        selected = tile;
       }
     }
   }
+
+  function setState(id) {
+    console.log("Setting state to", id);
+    state[data._id] = id;
+    state.update();
+  }
+
 </script>
 
 <style>

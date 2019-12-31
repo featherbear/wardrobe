@@ -2,6 +2,7 @@
   export let target;
   export let data;
   export let ctx;
+  export let state;
 
   import { slide } from "svelte/transition";
 
@@ -21,12 +22,10 @@
 
   import SidenavEntryPopupItem from "./SidenavEntryPopupItem.svelte";
 
-  function giveMeNumbers(n) {
-    var list = [];
-    for (var i = 0; i < n; i++) {
-      list.push(i);
-    }
-    return list;
+  function select(tile) {
+    state[data._id] = tile._id;
+    state.update();
+    console.log("POPUP state set to", tile._id);
   }
 
   function openUpload() {
@@ -87,6 +86,14 @@
     grid-template-columns: repeat(10, 1fr);
     grid-gap: 1px;
   }
+
+  .grid :not(.selected) {
+    filter: grayscale(0.9);
+  }
+  .grid .selected {
+    filter: grayscale(0);
+    border: 1px solid red;
+  }
 </style>
 
 <!-- TODO: Close if click out -->
@@ -103,8 +110,11 @@
   </div>
   <div class="grid">
     {#each tiles as tile}
-      <SidenavEntryPopupItem>
-        <img src={tile.url} />
+      <SidenavEntryPopupItem on:click={() => select(tile)}>
+        <img
+          src={tile.url}
+          alt="selected item"
+          class:selected={tile._id == state[data._id]} />
       </SidenavEntryPopupItem>
     {/each}
     <SidenavEntryPopupItem on:click={openUpload}>

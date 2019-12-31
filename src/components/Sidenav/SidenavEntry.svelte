@@ -5,9 +5,10 @@
 
   import { getContext } from "svelte";
   let ctx = getContext("ctx");
+  let state = getContext("state");
 
   function defaultClickEvent() {
-    SidenavEntryPopup.setPopup(this, data, ctx);
+    SidenavEntryPopup.setPopup(this, data, ctx, state);
   }
 
   import * as Icons from "svelte-awesome/icons/index.js";
