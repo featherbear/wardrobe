@@ -46,11 +46,10 @@
         }
       }
     });
-
     if (ret.ok) {
       items.update(items => [
         ...items,
-        { category: data._id, url: URL.createObjectURL(file) }
+        { _id: ret.id, category: data._id, url: URL.createObjectURL(file) }
       ]);
     }
   }

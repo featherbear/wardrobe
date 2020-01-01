@@ -1,5 +1,4 @@
 import SidenavEntryPopup from './SidenavEntryPopup.svelte'
-import { callbackify } from 'util'
 
 let modal = null
 let lastTarget = null

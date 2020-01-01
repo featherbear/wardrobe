@@ -33,8 +33,8 @@
     formData.order = nextOrderID;
     let ret = await ctx.database.categories.post(formData);
     if (ret.ok) {
-      formData.id = ret.id;
-      formData.rev = ret.rev;
+      formData._id = ret.id;
+      formData._rev = ret.rev;
       categories.update(categories => [...$categories, formData]);
       dispatch("close");
     }

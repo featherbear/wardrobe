@@ -5,7 +5,7 @@
 
   let selectedEntry = null;
   function clickEvt(entry) {
-    if (!(entry.id || entry._id)) return;
+    if (!entry._id) return;
     selectedEntry = selectedEntry != entry ? entry : null;
   }
 </script>
