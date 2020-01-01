@@ -10,6 +10,47 @@
       categories: new PouchDB("categories", { auto_compaction: true })
     };
 
+    {
+      let dbInfo = await database.categories.info();
+      if (dbInfo.update_seq === 0) {
+        // Create defaults
+        let defaultCategories = [
+          {
+            name: "Shirt",
+            icon: "faTshirt"
+          },
+          {
+            name: "Pants",
+            icon: "faPants"
+          },
+          {
+            name: "Shoe",
+            icon: "faShoePrints"
+          },
+          {
+            name: "Accessories",
+            icon: "faRibbon"
+          },
+          {
+            name: "Jewellery",
+            icon: "faGem"
+          }
+        ];
+
+        // {
+        //   name: "Hat",
+        //   icon: "faHatCowboy",
+        // },
+
+        for (let idx in defaultCategories) {
+          await database.categories.post({
+            ...defaultCategories[idx],
+            order: idx + 1
+          });
+        }
+      }
+    }
+
     let items = await database.items
       .allDocs({ include_docs: true })
       .then(r => r.rows.map(e => e.doc));

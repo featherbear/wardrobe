@@ -17,8 +17,14 @@
   }
 
   // import * as Icons_SA from "svelte-awesome/icons/index.js";
-  import * as Icons from "@fortawesome/free-solid-svg-icons";
+
+  import * as IconsFA from "@fortawesome/free-solid-svg-icons";
   
+  // FontAwesome please add in pants D:
+  import pantsIcon from "../pantsIcon.js";
+  
+  let Icons = { ...IconsFA, pants: pantsIcon, faPants: pantsIcon };
+
   import Icon from "svelte-awesome";
 </script>
 
