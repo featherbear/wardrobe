@@ -59,11 +59,10 @@
   const dispatch = createEventDispatcher();
 
   let popup;
-  import { onMount } from "svelte";
   let checkClickOut = function(evt) {
     if (evt.target == target) return;
     let elementsAtPoint = document.elementsFromPoint(evt.clientX, evt.clientY);
-    if (!elementsAtPoint.find(e => e.className === popup.className)) {
+    if (!elementsAtPoint.find(e => e == target || e == popup)) {
       dispatch("close");
     }
   };

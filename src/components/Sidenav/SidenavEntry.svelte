@@ -6,9 +6,14 @@
   const ctx = getContext("ctx");
   const state = getContext("state");
 
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+  let entry;
   import SidenavEntryPopup from "./SidenavEntryPopup.js";
   function defaultClickEvent() {
-    SidenavEntryPopup.setPopup(this, data, ctx, state);
+    SidenavEntryPopup.setPopup(entry, data, ctx, state, () =>
+      dispatch("close")
+    );
   }
 
   import * as Icons from "svelte-awesome/icons/index.js";
@@ -26,7 +31,7 @@
     align-items: center;
 
     border-bottom: 0.5px solid grey;
-    
+
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -49,7 +54,8 @@
   class="entry"
   class:selected
   on:click={data.click || defaultClickEvent}
-  on:click>
+  on:click
+  bind:this={entry}>
   {#if typeof data.icon === 'object'}
     <Icon data={data.icon} scale="2" />
   {:else if data.icon in Icons}

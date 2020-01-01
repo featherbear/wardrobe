@@ -3,7 +3,7 @@
 
   export let entries;
 
-  let selectedEntry;
+  let selectedEntry = null;
   function clickEvt(entry) {
     if (!(entry.id || entry._id)) return;
     selectedEntry = selectedEntry != entry ? entry : null;
@@ -15,6 +15,7 @@
     <SidenavEntry
       data={entry}
       selected={selectedEntry === entry}
-      on:click={() => clickEvt(entry)} />
+      on:click={() => clickEvt(entry)}
+      on:close={() => (selectedEntry = null)} />
   {/each}
 </div>

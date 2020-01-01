@@ -1,9 +1,10 @@
 import SidenavEntryPopup from './SidenavEntryPopup.svelte'
+import { callbackify } from 'util'
 
 let modal = null
 let lastTarget = null
 
-function setPopup (target, data, ctx, state) {
+function setPopup (target, data, ctx, state, close_callback) {
   if (modal) {
     modal.$destroy()
     modal = null
@@ -24,6 +25,7 @@ function setPopup (target, data, ctx, state) {
     modal.$destroy()
     modal = null
     lastTarget = null
+    close_callback();    
   })
 
   lastTarget = target
