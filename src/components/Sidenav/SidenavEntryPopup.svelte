@@ -4,10 +4,17 @@
   const { items } = ctx;
 
   let x, y;
+
+  let windowWidth;
   $: {
     let rect = target.getBoundingClientRect();
-    x = rect.x + rect.width;
-    y = rect.y;
+    if (windowWidth > 320) {
+      x = rect.x + rect.width;
+      y = rect.y;
+    } else {
+      x = 0;
+      y = rect.y + rect.height;
+    }
   }
 
   import { slide } from "svelte/transition";
@@ -100,7 +107,7 @@
   }
 </style>
 
-<svelte:window on:click={checkClickOut} />
+<svelte:window on:click={checkClickOut} bind:innerWidth={windowWidth} />
 
 <div
   class="popup"

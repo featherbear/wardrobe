@@ -13,6 +13,9 @@
   .content > :global(*) {
     padding-top: 5px;
   }
+  .content > :global(*:last-child) {
+    padding-bottom: 5px;
+  }
 </style>
 
 <div class="content">

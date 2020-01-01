@@ -77,11 +77,10 @@
   @media (max-width: 320px) {
     main .column.content {
       overflow-y: scroll;
-      padding-bottom: 5px;
     }
 
     main {
-      flex-direction: column-reverse;
+      flex-direction: column;
     }
   }
 </style>
