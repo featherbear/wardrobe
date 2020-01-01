@@ -12,7 +12,7 @@
 
 <style>
   /* Mobile */
-  @media (max-width: 320px) {
+  @media (max-width: 480px) {
     .sidenav {
       display: flex;
       justify-content: space-around;

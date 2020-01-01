@@ -74,7 +74,7 @@
   }
 
   /* Mobile */
-  @media (max-width: 320px) {
+  @media (max-width: 480px) {
     main .column.content {
       overflow-y: scroll;
     }

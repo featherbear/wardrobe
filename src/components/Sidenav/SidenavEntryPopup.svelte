@@ -8,7 +8,7 @@
   let windowWidth;
   $: {
     let rect = target.getBoundingClientRect();
-    if (windowWidth > 320) {
+    if (windowWidth > 480) {
       x = rect.x + rect.width;
       y = rect.y;
     } else {
