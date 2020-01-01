@@ -25,7 +25,8 @@
     justify-content: center;
     align-items: center;
 
-    border-bottom: 1px solid grey;
+    border-bottom: 0.5px solid grey;
+    
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;

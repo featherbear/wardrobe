@@ -10,12 +10,6 @@
   }
 </script>
 
-<style>
-  .sidenav {
-    /* height: 100%; */
-  }
-</style>
-
 <div class="sidenav">
   {#each entries as entry}
     <SidenavEntry

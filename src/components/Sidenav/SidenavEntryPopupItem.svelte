@@ -10,6 +10,11 @@
     justify-content: center;
     background-color: rgba(10, 10, 10, 0.3);
   }
+
+  .item > :global(*) {
+    max-height: 100%;
+    max-width: 100%;
+  }
 </style>
 
 <div class="item" on:click>

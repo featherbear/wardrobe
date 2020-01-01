@@ -9,6 +9,10 @@
   .content {
     height: 100%;
   }
+
+  .content > :global(*) {
+    padding-top: 5px;
+  }
 </style>
 
 <div class="content">
