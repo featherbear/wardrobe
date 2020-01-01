@@ -5,6 +5,16 @@
   import { writable } from "svelte/store";
 
   async function load() {
+    {
+      if (location.hash && location.hash.substring(1) === "reset") {
+        localStorage.clear();
+        await new PouchDB("items").destroy();
+        await new PouchDB("categories").destroy();
+        alert("Data reset!");
+        history.replaceState(null, null, " ");
+      }
+    }
+
     let database = {
       items: new PouchDB("items", { auto_compaction: true }),
       categories: new PouchDB("categories", { auto_compaction: true })
