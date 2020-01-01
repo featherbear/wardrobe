@@ -1,5 +1,6 @@
 <script>
   export let target;
+
   export let data;
   export let ctx;
   export let state;
@@ -22,6 +23,7 @@
 
   import SidenavEntryPopupItem from "./SidenavEntryPopupItem.svelte";
 
+  let { items } = ctx;
   function select(tile) {
     console.log("POPUP state set to", tile._id);
     state.update(state => ({ ...state, [data._id]: tile._id }));
@@ -42,7 +44,7 @@
   }
   async function uploadImage(file) {
     let ret = await ctx.database.items.post({
-      category: data.id || data._id,
+      category: data._id,
       _attachments: {
         [file.name]: {
           content_type: file.type,
@@ -52,17 +54,14 @@
     });
 
     if (ret.ok) {
-      console.log("Upload of " + file.name + " success!");
-      console.log(ret);
-      let url = URL.createObjectURL(file);
-      var img = document.createElement("img");
-      img.src = url;
-      document.body.appendChild(img);
+      items.update(items => [
+        ...items,
+        { category: data._id, url: URL.createObjectURL(file) }
+      ]);
     }
   }
 
   let tiles;
-  let { items } = ctx;
   $: tiles = $items.filter(i => i.category == data._id);
 </script>
 
@@ -97,7 +96,6 @@
 </style>
 
 <!-- TODO: Close if click out -->
-<!-- TODO: Fix reactive updating -->
 
 <div class="popup" style="left: {x}px; top: {y}px;" transition:slide>
   <div class="toolbar">

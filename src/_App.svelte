@@ -34,7 +34,6 @@
   }
 
   let state = localStorage.getItem("state");
-  console.log(state);
   if (state === null) {
     state = writable({});
   } else {
