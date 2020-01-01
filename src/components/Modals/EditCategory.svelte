@@ -44,14 +44,12 @@
     let updatedData = { ...data, ...getFormData() };
     let ret = await ctx.database.categories.put(updatedData);
     if (ret.ok) {
-      console.log($categories);
-      // $categories.findIndex()
-      // let searchID = ctx.categories.findIndex(function(c) {
-      //   return (c.id || c._id) == updatedData.id;
-      // });
-      // ctx.categories[searchID] = updatedData;
-      // ctx.categories = ctx.categories
-      // ctx.update();
+      data._rev = ret.rev;
+      categories.update(categories => {
+        let idx = categories.findIndex(category => category._id === data._id);
+        categories[idx] = { ...categories[idx], ...getFormData() };
+        return categories;
+      });
       dispatch("close");
     }
   }

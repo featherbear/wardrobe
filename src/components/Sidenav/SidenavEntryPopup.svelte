@@ -112,7 +112,10 @@
     <span>{data.name}</span>
     <span
       class="editBtn"
-      on:click={() => EditCategory.createModal({ ctx, data })}>
+      on:click={() => {
+        EditCategory.createModal({ ctx, data });
+        dispatch('close');
+      }}>
       <Icon data={edit} />
     </span>
   </div>
