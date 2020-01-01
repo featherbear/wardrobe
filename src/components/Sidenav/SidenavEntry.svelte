@@ -16,7 +16,9 @@
     );
   }
 
-  import * as Icons from "svelte-awesome/icons/index.js";
+  // import * as Icons_SA from "svelte-awesome/icons/index.js";
+  import * as Icons from "@fortawesome/free-solid-svg-icons";
+  
   import Icon from "svelte-awesome";
 </script>
 
