@@ -31,13 +31,6 @@
     align-items: center;
 
     border-bottom: 0.5px solid grey;
-
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
   }
 
   .entry:not(:hover) {
@@ -51,7 +44,7 @@
 </style>
 
 <div
-  class="entry"
+  class="entry no-select"
   class:selected
   on:click={data.click || defaultClickEvent}
   on:click
