@@ -12,7 +12,7 @@
   import EditCategory from "./components/Modals/EditCategory.js";
   import { plus } from "svelte-awesome/icons";
   let addCategoryButton = {
-    id: "yep",
+    id: null,
     tooltip: "Add new category",
     icon: plus,
     click: () => EditCategory.createModal({ ctx: data })

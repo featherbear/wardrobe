@@ -55,6 +55,19 @@
     }
   }
 
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
+  let popup;
+  import { onMount } from "svelte";
+  let checkClickOut = function(evt) {
+    if (evt.target == target) return;
+    let elementsAtPoint = document.elementsFromPoint(evt.clientX, evt.clientY);
+    if (!elementsAtPoint.find(e => e.className === popup.className)) {
+      dispatch("close");
+    }
+  };
+
   let tiles;
   $: tiles = $items.filter(i => i.category == data._id);
 </script>
@@ -89,9 +102,13 @@
   }
 </style>
 
-<!-- TODO: Close if click out -->
+<svelte:window on:click={checkClickOut} />
 
-<div class="popup" style="left: {x}px; top: {y}px;" transition:slide>
+<div
+  class="popup"
+  style="left: {x}px; top: {y}px;"
+  transition:slide
+  bind:this={popup}>
   <div class="toolbar">
     <span>{data.name}</span>
     <span

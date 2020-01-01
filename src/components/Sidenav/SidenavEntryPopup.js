@@ -22,6 +22,8 @@ function setPopup (target, data, ctx, state) {
 
   modal.$on('close', () => {
     modal.$destroy()
+    modal = null
+    lastTarget = null
   })
 
   lastTarget = target
