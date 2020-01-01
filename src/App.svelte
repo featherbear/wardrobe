@@ -75,8 +75,13 @@
 
   /* Mobile */
   @media (max-width: 320px) {
-    main {
-      flex-direction: column-reverse;
+    main .column.content {
+      padding-bottom: 130px;
+    }
+    main .column.nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
     }
   }
 </style>
