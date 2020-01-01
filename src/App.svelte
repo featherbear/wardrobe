@@ -48,7 +48,7 @@
     flex-direction: row;
     /* flex-basis: 100%; */
     /* flex-wrap: wrap; */
-    min-height: 100%;
+    height: 100%;
   }
 
   main .column.content {
@@ -76,12 +76,12 @@
   /* Mobile */
   @media (max-width: 320px) {
     main .column.content {
-      padding-bottom: 130px;
+      overflow-y: scroll;
+      padding-bottom: 5px;
     }
-    main .column.nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
+
+    main {
+      flex-direction: column-reverse;
     }
   }
 </style>

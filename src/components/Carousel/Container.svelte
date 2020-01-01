@@ -66,6 +66,9 @@
 </script>
 
 <style>
+  .container {
+    position: relative;
+  }
   .container > :global(*) {
     display: inline-block;
   }

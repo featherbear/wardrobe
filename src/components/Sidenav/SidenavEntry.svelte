@@ -35,6 +35,8 @@
     padding: 5px;
 
     flex-grow: 1;
+    flex-basis: 15%;
+    
     display: flex;
     justify-content: center;
     align-items: center;
