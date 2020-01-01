@@ -39,7 +39,7 @@
   main {
     text-align: center;
     /* padding: 1em; */
-    max-width: 240px;
+    max-width: none;
     margin: 0 auto;
   }
 
@@ -47,8 +47,8 @@
     display: flex;
     flex-direction: row;
     /* flex-basis: 100%; */
-    flex-wrap: wrap;
-    height: 100%;
+    /* flex-wrap: wrap; */
+    min-height: 100%;
   }
 
   main .column.content {
@@ -73,9 +73,10 @@
     font-weight: 100;
   }
 
-  @media (min-width: 640px) {
+  /* Mobile */
+  @media (max-width: 320px) {
     main {
-      max-width: none;
+      flex-direction: column-reverse;
     }
   }
 </style>

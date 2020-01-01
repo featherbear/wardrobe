@@ -19,10 +19,10 @@
   // import * as Icons_SA from "svelte-awesome/icons/index.js";
 
   import * as IconsFA from "@fortawesome/free-solid-svg-icons";
-  
+
   // FontAwesome please add in pants D:
   import pantsIcon from "../pantsIcon.js";
-  
+
   let Icons = { ...IconsFA, pants: pantsIcon, faPants: pantsIcon };
 
   import Icon from "svelte-awesome";
@@ -34,6 +34,7 @@
     height: 50px;
     padding: 5px;
 
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;

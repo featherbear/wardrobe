@@ -10,6 +10,16 @@
   }
 </script>
 
+<style>
+  /* Mobile */
+  @media (max-width: 320px) {
+    .sidenav {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+</style>
+
 <div class="sidenav">
   {#each entries as entry}
     <SidenavEntry
