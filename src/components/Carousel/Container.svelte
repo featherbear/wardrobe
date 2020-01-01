@@ -1,11 +1,12 @@
 <script>
   let ready = false;
   let selected = {};
-
-  import Carousel from "./Carousel.svelte";
-  import CarouselMenu from "./Menu.svelte";
-
   export let data;
+
+  import { getContext } from "svelte";
+  const ctx = getContext("ctx");
+  const state = getContext("state");
+  const { items } = ctx;
 
   function left() {
     if (!tiles.length) return;
@@ -41,37 +42,27 @@
     setState(tiles[index]._id);
   }
 
-  import { getContext } from "svelte";
-  const ctx = getContext("ctx");
-
   let tiles = [];
-  let { items } = ctx;
-  $: {
-    tiles = $items.filter(i => i.category == data._id);
-  }
+  $: tiles = $items.filter(i => i.category == data._id);
 
   function getTile(id) {
     return tiles.find(t => t._id == id);
   }
-  function getTileIndex(id) {
-    return tiles.findIndex(t => t._id == id);
-  }
-
-  const state = getContext("state");
 
   $: {
     let targetStateID = $state[data._id];
     if (targetStateID) {
       let tile = getTile(targetStateID);
-      if (tile !== undefined) {
-        selected = tile;
-      }
+      if (tile !== undefined) selected = tile;
     }
   }
 
   function setState(id) {
     state.update(state => ({ ...state, [data._id]: id }));
   }
+
+  import Carousel from "./Carousel.svelte";
+  import CarouselMenu from "./Menu.svelte";
 </script>
 
 <style>

@@ -10,7 +10,7 @@
   let name = "";
   let icon = "";
 
-  let { categories } = ctx;
+  const { categories } = ctx;
 
   import { onMount } from "svelte";
   onMount(() => {

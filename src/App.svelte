@@ -1,18 +1,12 @@
 <script>
-  import Main from "./components/Main.svelte";
-  import Sidenav from "./components/Sidenav/Sidenav.svelte";
+  import { setContext, getContext } from "svelte";
 
   export let data;
-
-  import { setContext, getContext } from "svelte";
+  // Reactive update
+  data.update = () => (data = data);
   setContext("ctx", data);
 
-  data.update = function() {
-    // Reactive update
-    data = data;
-  };
-
-  let state = getContext("state");
+  const state = getContext("state");
   $: localStorage.setItem("state", JSON.stringify($state));
 
   import EditCategory from "./components/Modals/EditCategory.js";
@@ -25,8 +19,11 @@
   };
 
   let entries;
-  let { categories } = data;
+  const { categories } = data;
   $: entries = $categories.sort((a, b) => a.order - b.order);
+
+  import Main from "./components/Main.svelte";
+  import Sidenav from "./components/Sidenav/Sidenav.svelte";
 </script>
 
 <style>
@@ -82,7 +79,9 @@
   <div class="column content">
     <Main {entries} />
   </div>
-  <!-- <div class="column nav">
-    <Sidenav />
-  </div> -->
+  <!--
+    <div class="column nav">
+      <Sidenav />
+    </div>
+  -->
 </main>

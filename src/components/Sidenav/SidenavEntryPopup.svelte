@@ -1,31 +1,24 @@
 <script>
   export let target;
+  export let data, ctx, state;
+  const { items } = ctx;
 
-  export let data;
-  export let ctx;
-  export let state;
-
-  import { slide } from "svelte/transition";
-
-  let x;
-  let y;
-
+  let x, y;
   $: {
     let rect = target.getBoundingClientRect();
     x = rect.x + rect.width;
     y = rect.y;
   }
 
-  import EditCategory from "../Modals/EditCategory.js";
+  import { slide } from "svelte/transition";
 
   import Icon from "svelte-awesome";
   import { edit, plus } from "svelte-awesome/icons";
 
+  import EditCategory from "../Modals/EditCategory.js";
   import SidenavEntryPopupItem from "./SidenavEntryPopupItem.svelte";
 
-  let { items } = ctx;
   function select(tile) {
-    console.log("POPUP state set to", tile._id);
     state.update(state => ({ ...state, [data._id]: tile._id }));
   }
 
@@ -42,6 +35,7 @@
 
     elem.click();
   }
+
   async function uploadImage(file) {
     let ret = await ctx.database.items.post({
       category: data._id,

@@ -1,12 +1,11 @@
 <script>
   export let data;
 
-  import SidenavEntryPopup from "./SidenavEntryPopup.js";
-
   import { getContext } from "svelte";
-  let ctx = getContext("ctx");
-  let state = getContext("state");
+  const ctx = getContext("ctx");
+  const state = getContext("state");
 
+  import SidenavEntryPopup from "./SidenavEntryPopup.js";
   function defaultClickEvent() {
     SidenavEntryPopup.setPopup(this, data, ctx, state);
   }

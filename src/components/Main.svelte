@@ -1,11 +1,8 @@
 <script>
+  export let entries;
+
   import Button from "./Button.svelte";
   import Carousel from "./Carousel";
-
-  import { getContext, onMount } from "svelte";
-  const ctx = getContext("ctx");
-  
-  export let entries;
 </script>
 
 <style>
@@ -15,11 +12,12 @@
 </style>
 
 <div class="content">
+  {#each entries as category}
+    <Carousel data={category} />
+  {/each}
 
-{#each entries as category}
-  <Carousel data={category} />
-{/each}
-
-  <!-- <Button>Random</Button>
-  <Button>Save</Button> -->
+  <!--
+    <Button>Random</Button>
+    <Button>Save</Button>
+  -->
 </div>

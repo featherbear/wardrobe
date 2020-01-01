@@ -10,13 +10,13 @@ function setPopup (target, data, ctx, state) {
   }
 
   if (lastTarget === target) {
-    lastTarget = null;
+    lastTarget = null
     return
   }
 
   modal = new SidenavEntryPopup({
     target: document.body,
-    props: { target, data, ctx, state},
+    props: { target, data, ctx, state },
     intro: true
   })
 

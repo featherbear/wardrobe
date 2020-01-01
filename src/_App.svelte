@@ -1,7 +1,9 @@
 <script>
   import PouchDB from "pouchdb-browser";
 
+  import { setContext } from "svelte";
   import { writable } from "svelte/store";
+
   async function load() {
     let database = {
       items: new PouchDB("items", { auto_compaction: true }),
@@ -33,15 +35,13 @@
     return { database, items, categories };
   }
 
+  // Put here because of reactivity issues with App.svelte
   let state = localStorage.getItem("state");
   if (state === null) {
     state = writable({});
   } else {
     state = writable(JSON.parse(state));
   }
-
-  import { setContext } from "svelte";
-
   setContext("state", state);
 
   import App from "./App.svelte";

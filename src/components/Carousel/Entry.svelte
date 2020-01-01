@@ -9,4 +9,4 @@
   }
 </style>
 
-<img src={selected.url} />
+<img src={selected.url} alt="item" />
