@@ -23,9 +23,8 @@
   import SidenavEntryPopupItem from "./SidenavEntryPopupItem.svelte";
 
   function select(tile) {
-    state[data._id] = tile._id;
-    state.update();
     console.log("POPUP state set to", tile._id);
+    state.update(state => ({ ...state, [data._id]: tile._id }));
   }
 
   function openUpload() {
@@ -63,7 +62,8 @@
   }
 
   let tiles;
-  $: tiles = ctx.items.filter(i => i.category == data._id);
+  let { items } = ctx;
+  $: tiles = $items.filter(i => i.category == data._id);
 </script>
 
 <style>
@@ -114,7 +114,7 @@
         <img
           src={tile.url}
           alt="selected item"
-          class:selected={tile._id == state[data._id]} />
+          class:selected={tile._id == $state[data._id]} />
       </SidenavEntryPopupItem>
     {/each}
     <SidenavEntryPopupItem on:click={openUpload}>

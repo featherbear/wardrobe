@@ -10,6 +10,8 @@
   let name = "";
   let icon = "";
 
+  let { categories } = ctx;
+
   import { onMount } from "svelte";
   onMount(() => {
     if (data) {
@@ -27,14 +29,13 @@
 
   async function createCategory() {
     let formData = getFormData();
-    let nextOrderID = ctx.categories.length + 1;
+    let nextOrderID = $categories.length + 1;
     formData.order = nextOrderID;
     let ret = await ctx.database.categories.post(formData);
     if (ret.ok) {
       formData.id = ret.id;
       formData.rev = ret.rev;
-      ctx.categories = [...ctx.categories, formData];
-      ctx.update();
+      categories.update(categories => [...$categories, formData]);
       dispatch("close");
     }
   }

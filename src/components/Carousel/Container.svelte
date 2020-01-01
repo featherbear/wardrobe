@@ -8,16 +8,19 @@
   export let data;
 
   function left() {
+    if (!tiles.length) return;
     let index = (tiles.indexOf(selected) - 1 + tiles.length) % tiles.length;
     setState(tiles[index]._id);
   }
 
   function right() {
+    if (!tiles.length) return;
     let index = (tiles.indexOf(selected) + 1) % tiles.length;
     setState(tiles[index]._id);
   }
 
   function random() {
+    if (!tiles.length) return;
     const RNG = topInclusive => Math.floor(Math.random() * topInclusive);
 
     function randomPositiveIntegerButNot(topInclusive, not) {
@@ -42,9 +45,9 @@
   const ctx = getContext("ctx");
 
   let tiles = [];
+  let { items } = ctx;
   $: {
-    console.log(ctx.items);
-    tiles = ctx.items.filter(i => i.category == data._id);
+    tiles = $items.filter(i => i.category == data._id);
   }
 
   function getTile(id) {
@@ -57,7 +60,7 @@
   const state = getContext("state");
 
   $: {
-    let targetStateID = state[data._id];
+    let targetStateID = $state[data._id];
     if (targetStateID) {
       let tile = getTile(targetStateID);
       if (tile !== undefined) {
@@ -67,11 +70,8 @@
   }
 
   function setState(id) {
-    console.log("Setting state to", id);
-    state[data._id] = id;
-    state.update();
+    state.update(state => ({ ...state, [data._id]: id }));
   }
-
 </script>
 
 <style>

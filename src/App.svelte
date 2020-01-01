@@ -2,9 +2,9 @@
   import Main from "./components/Main.svelte";
   import Sidenav from "./components/Sidenav/Sidenav.svelte";
 
-  import { setContext } from "svelte";
-
   export let data;
+
+  import { setContext, getContext } from "svelte";
   setContext("ctx", data);
 
   data.update = function() {
@@ -12,17 +12,8 @@
     data = data;
   };
 
-  let state = localStorage.getItem("state");
-  if (state === null) {
-    state = {};
-  } else {
-    state = JSON.parse(state);
-  }
-  state.__proto__.update = () => {
-    state = state;
-  };
-  setContext("state", state);
-  $: localStorage.setItem("state", JSON.stringify(state));
+  let state = getContext("state");
+  $: localStorage.setItem("state", JSON.stringify($state));
 
   import EditCategory from "./components/Modals/EditCategory.js";
   import { plus } from "svelte-awesome/icons";
@@ -33,8 +24,9 @@
     click: () => EditCategory.createModal({ ctx: data })
   };
 
-  let categories;
-  $: categories = data.categories.sort((a, b) => a.order - b.order);
+  let entries;
+  let { categories } = data;
+  $: entries = $categories.sort((a, b) => a.order - b.order);
 </script>
 
 <style>
@@ -84,11 +76,11 @@
 
 <main>
   <div class="column nav">
-    <Sidenav entries={categories} />
+    <Sidenav {entries} />
     <Sidenav entries={[addCategoryButton]} />
   </div>
   <div class="column content">
-    <Main entries={categories} />
+    <Main {entries} />
   </div>
   <!-- <div class="column nav">
     <Sidenav />
