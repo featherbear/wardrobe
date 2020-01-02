@@ -43,11 +43,18 @@
     elem.click();
   }
 
+  import { loadImageAsync, canvasToBlobAsync } from "../ImageBlobUtil.js";
   async function uploadImage(file) {
+    let name = file.name;
+    // Fix image rotation
+    file = await loadImageAsync(file, {
+      orientation: true
+    }).then(c => canvasToBlobAsync(c, "image/jpeg"));
+
     let ret = await ctx.database.items.post({
       category: data._id,
       _attachments: {
-        [file.name]: {
+        [name]: {
           content_type: file.type,
           data: file
         }
